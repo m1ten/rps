@@ -1,5 +1,3 @@
-# rock, paper, scissors game
-
 import random
 
 game_rules = {
@@ -12,22 +10,38 @@ def computer_choice():
     choices = ['rock', 'paper', 'scissors']
     return random.choice(choices)
 
-def main():
-    print('Welcome to Rock, Paper, Scissors!')
-    print('---------------------------------')
+def main(user_score, computer_score):
     print('Enter your choice: ')
     player1 = input('> ').lower()
     player2 = computer_choice()
-    print('Player 2 chose: ' + player2)
+    print(f'Player 2 chose: {player2}')
     try:
         if game_rules[player1] == player2:
+            user_score += 1
             print('Player 1 wins!')
         elif game_rules[player2] == player1:
+            computer_score += 1
             print('Player 2 wins!')
         else:
             print('It\'s a tie!')
-    except ValueError:
+    except KeyError:
         print('Invalid input')
+    return user_score, computer_score
 
 if __name__ == '__main__':
-    main()
+    user_score = 0
+    computer_score = 0
+    print('Welcome to Rock, Paper, Scissors!')
+    print('---------------------------------')
+    rounds = 0
+    while rounds <= 0:
+        try:
+            rounds = int(input('Number of rounds to play: '))
+        except ValueError:
+            pass
+        
+    for i in range(int(rounds)):
+        print(f'Round {i + 1}')
+        user_score, computer_score = main(user_score, computer_score)
+        
+    print(f'Final Score: Player 1 - {user_score}, Player 2 - {computer_score}')
